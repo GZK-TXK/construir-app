@@ -1,35 +1,24 @@
+//////////////////////////////////////////////////////////////////////////////////////
 const express = require('express');
-
+//////////////////////////////////////////////////////////////////////////////////////
 const app = express();
 const port = 3000
-
+const {publicRoutes}= require('./routes/publicRoutes')
+//////////////////////////////////////////////////////////////////////////////////////
+app.set('view engine','ejs');
+app.set('views', __dirname+'/views')
+//////////////////////////////////////////////////////////////////////////////////////
+app.use(express.static(__dirname + "/public"))
+app.use('/',require('./routes/publicRoutes'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-
-app.get('/', (req, res) => {
-    res.send("<h1>Práctica JWT</h1>");
+app.use((req,res,next)=>{
+    titulo:'error 404'
 })
+//////////////////////////////////////////////////////////////////////////////////////
+app.use('/', require('./routes/publicRoutes'))
 
-app.get('/api', (req, res) => {
-
-    res.status(200).json({
-        posts: [
-            {
-                id: 0,
-                title: "Primer post",
-                username: 'Pepe'
-            },
-            {
-                id: 1,
-                title: "Segundo post",
-                username: 'Ana'
-            }
-        ]
-    })
-
-})
-
-
+app.use('/api', require('./routes/publicRoutes'))
 
 app.get('/login', (req, res) => {
     res.send(`
@@ -50,18 +39,16 @@ app.get('/login', (req, res) => {
     `);
 })
 
-
+//////////////////////////////////////////////////////////////////////////////////////
 app.post('/auth', (req, res) => {
     const { username, password } = req.body;
 
     const user = { username: username }
 })
-
-
-
+//////////////////////////////////////////////////////////////////////////////////////
 require('dotenv').config()
-
-
+//////////////////////////////////////////////////////////////////////////////////////
 app.listen(port, () => {
     console.log('a la escucha del ', port)
 })
+//////////////////////////////////////////////////////////////////////////////////////
