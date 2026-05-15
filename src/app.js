@@ -10,8 +10,6 @@ app.get('/', (req, res) => {
     res.send("<h1>Práctica JWT</h1>");
 })
 
-
-
 app.get('/api', (req, res) => {
 
     res.status(200).json({
@@ -61,7 +59,7 @@ app.post('/auth', (req, res) => {
 
 
 
-
+require('dotenv').config()
 
 
 app.listen(port, () => {
