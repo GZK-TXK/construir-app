@@ -3,42 +3,14 @@
 const express=require('express')
 const router=express.Router()
 
+const publicControllers = require('../controllers/publicControllers');
+
 //////////////////////////////////////////////////////////////////////////////////////
 
-router.get('/', (req, res) => {
-    res.render("index");
-})
-
-
-router.get('/api', (req, res) => {
-    res.status(200).json({
-        posts: [
-            {
-                id: 0,
-                title: "Primer post",
-                username: 'Pepe'
-            },
-            {
-                id: 1,
-                title: "Segundo post",
-                username: 'Ana'
-            }
-        ]
-    })
-
-})
-
-
-router.get('/login', (req, res) => {
-    res.render('login');
-})
-
-
-router.post('/auth', (req, res) => {
-    const { username, password } = req.body;
-    const user = { username: username };
-    res.json({ mensaje: "Datos recibidos", usuario: user });
-})
+router.get('/', publicControllers.renderIndex);
+router.get('/api', publicControllers.getApi);
+router.get('/login', publicControllers.renderLogin);
+router.post('/auth', publicControllers.autenticacion);
 
 //////////////////////////////////////////////////////////////////////////////////////
 
