@@ -30,22 +30,7 @@ router.get('/api', (req, res) => {
 
 
 router.get('/login', (req, res) => {
-    res.send(`
-        <html>
-            <head>
-                <title></title>
-            </head>
-            <body>
-                <form method="POST" action="/auth">
-                
-                    <div>Nombre de Usuario: <input type='text' name='username'> </div>
-                    <div>Contraseña: <input type='text' name='paswword'> </div>
-                    <div> <input type='submit' value='Iniciar sesión'  >  </div>
-                
-                </form>
-            </body>
-        </html>
-    `);
+    res.render('login');
 })
 
 
